@@ -118,14 +118,14 @@ When I ended with everything that we discussed before, I thought the hard part w
 The main problem is that we need to offload it outside of our code, since we are changing the memory protection to RW (read-write), if we call VirtualProtect(), when the function returns, our process will crash (we can't execute instructions in RW pages), so we need to find a way to execute this from somewhere else, and make it return also to some RX(read-execute) pages (and the same thing happens when coming back).
 Obviously, we will be using the thread pool API for this too, but there is a problem, we can only give one argument to our tasks, and VirtualProtect() takes 4.
 
-For this we will be using NtContinue() again, the first time I saw this use for this function was on Foliage, but it is also used in Ekko. 
+For this we will be using NtContinue() again, the first time I saw this use for this function was on [Foliage](https://github.com/SecIdiot/FOLIAGE), but it is also used in [Ekko](https://github.com/Cracked5pider/Ekko). 
 NtContinue(), as we saw before, allows us to set some context to the thread that calls it, and with some clever tweaking, it can “call” a function with multiple arguments, by using only one (very convenient for the thread pool API). 
 The main idea is to set the RIP to the start address of the function, and, since the windows x64 calling convention passes the first four arguments in registers (rcx, rdx, r8, r9, in that order), just put your arguments on the context structure you will pass to NtContinue and, and it will effectively simulate a call to a function.
 The last thing we have to take care when using NtContinue is the Rsp, since, as we saw before, this address should hold the return address when a function is called.
 
 So the first thing we need for NtContinue to work is to get a context, we could craft it manually, but we would find a problem, finding the value for Rsp, that when passed to our function, will point to the address that will be used by RET to return. 
 Our tasks will work in a different thread, so we don't know where its stack will be placed.
-The solution is taking a copy of the context inside a worker with RtlCaptureContext(), and increase the stack pointer of the context obtained by 8, so it will point to the address introduced in the stack by CALL RtlCaptureContext(), and which is the return address of this last function, and we can use it as the return address of all our functions.
+The solution (carefully stolen from [Ekko](https://github.com/Cracked5pider/Ekko), thank you very much :P) is taking a copy of the context inside a worker with RtlCaptureContext(), and increase the stack pointer of the context obtained by 8, so it will point to the address introduced in the stack by CALL RtlCaptureContext(), and which is the return address of this last function, and we can use it as the return address of all our functions.
 
 Okay this is nice, but what happens when we can not do this modification to the Rsp?
 That's what happens when we deobfuscate, we will be in a new thread, so the old context's Rsp is useless. We need a new context, taken from the new thread, but we can't use the old trick of modifying the Rsp to point to the correct address.
@@ -173,6 +173,13 @@ So the only thing that we still need to understand is how the callback informati
   ![](assets/image_9.PNG)
   
 Now we can call functions that receive their arguments in the first position and at the same time we are able to close our pools, and leave no threads running, win win.
+Is important to note that this function is not exported in Ntdll, so I decided to find it by its byte form inside the dll.
+
+
+So this is the end, and with everything reviewed, I think I gave the core ideas that came throw my mind while developing this POC, and why everything was done in the way I did it.
+
+## Wish you have enjoyed :)
+
   </details>
   
 ---
