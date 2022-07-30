@@ -9,6 +9,8 @@
 
 A POC to demonstrate the possibility of killing the current thread and restoring it before resuming execution by an agent, while implementing page protection changes during no execution.
 
+![](assets/ezgif-5-ee95c9b3b0.gif)
+
 ## Intro
 
 Sleep and obfuscation methods are techniques that are already widely spread in the maldev community, with different implementations, with the objective of hiding from memory scanners while sleeping, usually changing page protections and even adding cool features like encrypting the shellcode, but there is another important point to hide our shellcode, and is hiding the current execution thread, that mainly involves spoofing the thread stack. 
