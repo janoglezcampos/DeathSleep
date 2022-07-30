@@ -7,13 +7,13 @@
                                                                                  
 
 
-A PoC implementation for an in-memory evasion technique to terminate the current thread and restore it before resuming execution by an agent, while implementing page protection changes during no execution.
+A PoC implementation for an evasion technique to terminate the current thread and restore it before resuming execution by an agent, while implementing page protection changes during no execution.
 
 ![](assets/ezgif-5-ee95c9b3b0.gif)
 
 ## Intro
 
-Sleep and obfuscation methods are techniques that are already widely spread in the maldev community, with different implementations, with the objective of hiding from memory scanners while sleeping, usually changing page protections and even adding cool features like encrypting the shellcode, but there is another important point to hide our shellcode, and is hiding the current execution thread, that mainly involves spoofing the thread stack. 
+Sleep and obfuscation methods are well known in the maldev community, with different implementations, they have the objective of hiding from memory scanners while sleeping, usually changing page protections and even adding cool features like encrypting the shellcode, but there is another important point to hide our shellcode, and is hiding the current execution thread. 
 Spoofing the stack is cool, but after thinking a little about it I thought that there is no need to spoof the stack… if there is no stack :)
 
 The usability of this technique is left to the reader to assess, but in any case, I think it is a cool way to review some topics, and learn some maldev for those who, like me, are starting in this world.
