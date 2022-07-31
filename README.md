@@ -20,7 +20,7 @@ The usability of this technique is left to the reader to assess, but in any case
 
 The main implementation showed here holds everything that we need to take out of the stack in the data section, as global variables, but an impletementation moving everything to the heap is showed in this branch. It aims to show some key modifications that needs to be done to make this code pic and injectable. 
 
-This ropository is mirrored between [GitHub](https://github.com/janoglezcampos/DeathSleep) and [GitLab](https://gitlab.gi7w0rm.de/infosec_family/DeathSleep). 
+This repository is mirrored between [GitHub](https://github.com/janoglezcampos/DeathSleep) and [GitLab](https://gitlab.gi7w0rm.de/infosec_family/DeathSleep). 
 
 ---
 <details>
