@@ -28,7 +28,7 @@ This repository is mirrored between [GitHub](https://github.com/janoglezcampos/D
 
 ## First of all
 
-Everything stated here comes from my understanding of the different topics covered, either from reading or experience during development. Im aware that Im not an expert and the last thing I want to do is spread misinformation, so if you think that something is not correct, I would love you to make me aware of it, you can contact me on twitter, or opening issues in this repo. Thank you very much for your understanding. :)
+Everything stated here comes from my understanding of the different topics covered, either from reading or experience during development. Im aware that Im not an expert and the last thing I want to do is spread misinformation, so if you think that something is not correct, I would love you to make me aware of it, you can contact me on twitter[twitter](https://twitter.com/httpyxel), or opening issues in this repo. Thank you very much for your understanding. :)
 
 ## Basics
 
