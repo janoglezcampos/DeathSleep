@@ -11,7 +11,7 @@ BIN_FOLDER = bin/
 ASMOUT = $(BIN_FOLDER)asm_utils.obj
 X64 = $(BIN_FOLDER)DeathSleep.exe
 
-all: clean $(ASMOUT) $(X64) fix_epilogue clean_obj
+all: clean $(ASMOUT) $(X64) fix_stack_frame_size clean_obj
 
 $(ASMOUT):
 	nasm -f win64 $(ASMIN) -o $@
@@ -19,8 +19,8 @@ $(ASMOUT):
 $(X64):
 	$(CC) $(SOURCE) $(ASMOUT) /Fo:$(BIN_FOLDER) /Fe: $@ $(CFLAGS) $(LFLAGS) 
 
-fix_epilogue:
-	python3 scripts/fixEpilogueSize.py -f $(X64)
+fix_stack_frame_size:
+	python3 scripts/fixStackFrameSize.py -f $(X64)
 
 clean:
 	del /q bin\*

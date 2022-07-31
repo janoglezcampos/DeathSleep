@@ -104,7 +104,7 @@ DeathSleep(ULONGLONG time)
     PVOID NdllImageBase = NULL;
     PVOID ImageBase     = NULL;
     DWORD ImageSize     = 0;
-    DWORD epilogueSize  = 0xFAFBFCFD;
+    DWORD stackFrameSize  = 0xFAFBFCFD;
 
     PVOID NtContinue            = NULL;
     PVOID SysFunc032            = NULL;
@@ -125,9 +125,9 @@ DeathSleep(ULONGLONG time)
     rcxGadgetAddr =         findGadget((PBYTE) "\x59\xC3", "xx");
     shadowFixerGadgetAddr = findGadget((PBYTE) "\x48\x83\xC4\x20\x5F\xC3", "xxxxxx");
 
-    threadCtxBackup.Rip = *(PDWORD64)(threadCtxBackup.Rsp + epilogueSize);
+    threadCtxBackup.Rip = *(PDWORD64)(threadCtxBackup.Rsp + stackFrameSize);
 
-    stackBackupSize = initialRsp - (threadCtxBackup.Rsp + epilogueSize + 0x8);
+    stackBackupSize = initialRsp - (threadCtxBackup.Rsp + stackFrameSize + 0x8);
 
     stackBackup = malloc(stackBackupSize);
 
