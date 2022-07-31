@@ -24,6 +24,10 @@ The main implementation showed here holds everything that we need to take out of
 <details>
 <summary> Whats going on? </summary>
 
+## First of all
+
+Everything stated here comes from my understanding of the different topics covered, either from reading or experience during development. Im aware that Im not an expert and the last thing I want to do is spread misinformation, so if you think that something is not correct, I would love you to make me aware of it, you can contact me on twitter, or opening issues in this repo. Thank you very much for your understanding. :)
+
 ## Basics
 
 The main objective of this technique is clear, terminating the current thread and restoring it before resuming execution, but what exactly does this mean, and which new constraints it puts in place?
@@ -188,8 +192,8 @@ So this is the end, and with everything reviewed, I think I gave the core ideas 
 
 <details>
 <summary> Testing considerations </summary>
-  
-  This code was tested only with MSCV compiler and linker, since this POC is heavily dependend on how it was compiled, I recomend using this same tool, and I dont ensure it will work with other compilers out of the box.
+
+This code was tested only with MSCV compiler and linker, since this POC is heavily dependend on how it was compiled, I recomend using this same tool, and I dont ensure it will work with other compilers out of the box.
   
 </details>
 
