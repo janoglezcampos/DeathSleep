@@ -18,9 +18,9 @@ Spoofing the stack is cool, but after thinking a little about it I thought that 
 
 The usability of this technique is left to the reader to assess, but in any case, I think it is a cool way to review some topics, and learn some maldev for those who, like me, are starting in this world.
 
-The main implementation showed here holds everything that we need to take out of the stack in the data section, as global variables, but an impletementation moving everything to the heap is showed in this branch. It aims to show some key modifications that needs to be done to make this code pic and injectable. 
+The main implementation showed here holds everything that we need to take out of the stack in the data section, as global variables, but an impletementation moving everything to the heap will be published soon. It aims to show some key modifications that needs to be done to make this code pic and injectable. 
 
-This repository is mirrored between [GitHub](https://github.com/janoglezcampos/DeathSleep) and [GitLab](https://gitlab.gi7w0rm.de/infosec_family/DeathSleep). 
+This repository is mirrored between [GitHub](https://github.com/janoglezcampos/DeathSleep) and [GitLab](https://gitlab.gi7w0rm.de/infosec_family/DeathSleep).
 
 ---
 <details>
