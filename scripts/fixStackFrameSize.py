@@ -50,7 +50,7 @@ def setStackFrameSize(filename, pattern):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-fd', '--filepath', help='Path to exe', required=True)
+    parser.add_argument('-f', '--filepath', help='Path to exe', required=True)
     args = parser.parse_args()
     setStackFrameSize(args.filepath, 0xFAFBFCFD)
     setStackFrameSize(args.filepath, 0xFBFBFAFA)

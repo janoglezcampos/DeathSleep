@@ -10,13 +10,13 @@
         (ci)->paramAddr = parameterAddres;                          \
         (ci)->timerQueue = NULL;                                    \
         (ci)->isPeriodic = 0;                                       \
-        (ci)->execControl = 0;                                              \
+        (ci)->execControl = 0;                                      \
     }
 
 #define InitializeFiletimeMs(ft, millis)                                                  \
     {                                                                                     \
         (ft)->dwHighDateTime = (DWORD)(((ULONGLONG) - ((millis)*10 * 1000)) >> 32);       \
-        (ft)->dwLowDateTime = (DWORD)(((ULONGLONG) - ((millis)*10 * 1000)) & 0xffffffff); \
+        (ft)->dwLowDateTime  = (DWORD)(((ULONGLONG) - ((millis)*10 * 1000)) & 0xffffffff); \
     }
 
 typedef struct
@@ -40,10 +40,10 @@ typedef struct
 
 VOID   awake (PVOID lpParam);
 VOID   rebirth (PTP_CALLBACK_INSTANCE Instance, PVOID lpParam, PTP_TIMER Timer);
-PVOID  InitilizeRopStack(PVOID ropStackMemBlock, DWORD sizeRopStack, PVOID function, PVOID arg, PVOID rcxGadgetAddr, PVOID shadowFixerGadgetAddr);
+PVOID  InitilizeRopStack (PVOID ropStackMemBlock, DWORD sizeRopStack, PVOID function, PVOID arg, PVOID rcxGadgetAddr, PVOID shadowFixerGadgetAddr);
 VOID   coma (ULONGLONG time);
 
-DWORD  WINAPI    payload();
+DWORD  WINAPI    mainProgram();
 
 extern DWORD_PTR getRsp();
 extern void      moveRsp(DWORD, DWORD);

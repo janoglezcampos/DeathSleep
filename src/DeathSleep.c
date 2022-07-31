@@ -38,9 +38,6 @@ VOID awake(PVOID lpParam)
         PVOID NtContinue = NULL;
         NtContinue = GetProcAddress(GetModuleHandleA("Ntdll"), "NtContinue");
 
-        //for (counter = 0; counter < stackBackupSize; counter++)
-        //    ((PBYTE)(retrsp - stackBackupSize))[counter] = ((PBYTE)stackBackup)[counter];
-        
         memcpy((PVOID)(initialRsp - stackBackupSize), stackBackup, stackBackupSize);
 
         CloseThreadpool(deobfuscationPool);
@@ -54,14 +51,13 @@ VOID awake(PVOID lpParam)
     }
     else
     {
-        printf("\t[-] Starting payload\n");
-        payload();
+        printf("\t[-] Starting main program\n");
+        mainProgram();
     }
 }
 
 VOID rebirth(PTP_CALLBACK_INSTANCE Instance, PVOID lpParam, PTP_TIMER Timer)
 {
-    // Instance, Parameter, and Timer not used in this example.
     UNREFERENCED_PARAMETER(Instance);
     UNREFERENCED_PARAMETER(Timer);
 
@@ -205,11 +201,10 @@ DeathSleep(ULONGLONG time)
     InitializeFiletimeMs(&dueTimeHolder, time);
     SetThreadpoolTimer(rebirthTimer,              &dueTimeHolder, 0, 0);
 
-    //terminate();
     ExitThread(0);
 }
 
-DWORD WINAPI payload()
+DWORD WINAPI mainProgram()
 {
     int c = 0;
 
@@ -223,15 +218,15 @@ DWORD WINAPI payload()
 
         c++;
     }
-    //terminate();
+    printf("\n[*] PoC Ending, safe to kill process\n", c);
     return 0;
 }
 
 int main(int argc, char *argv[])
 {
     
-    printf("\n[*] Rebirth POC by httpyxel");
-    printf("\n[>] Press any key to continue...\n");
+    printf("\n[*] DeathSleep PoC by httpyxel\n");
+    printf("[>] Press any key to continue...\n");
     getchar();
 
     HANDLE thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)awake, NULL, 0, NULL);
