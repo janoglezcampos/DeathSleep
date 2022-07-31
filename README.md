@@ -20,6 +20,8 @@ The usability of this technique is left to the reader to assess, but in any case
 
 The main implementation showed here holds everything that we need to take out of the stack in the data section, as global variables, but an impletementation moving everything to the heap is showed in this branch. It aims to show some key modifications that needs to be done to make this code pic and injectable. 
 
+This ropository is mirrored between [GitHub](https://github.com/janoglezcampos/DeathSleep) and [GitLab](https://gitlab.gi7w0rm.de/infosec_family/DeathSleep). 
+
 ---
 <details>
 <summary> Whats going on? </summary>
@@ -107,11 +109,11 @@ And here is my solution, just move everything away:
 
 Okay, we know the basics of what we need to do to store and restore the current thread, but we need somehow be able to run all of this even when we have no threads.
 Here is where we meet our lovely Thread Pool API, a tool given by Windows, that will allow us to queue tasks (functions with one argument max) to a group of threads (a pool) that will be fully managed by the operating system.
-If you have seen Ekko, you can see that it uses this API, so… let's implement it the same way.
+If you have seen [Ekko](https://github.com/Cracked5pider/Ekko), you can see that it uses this API, so… let's implement it the same way.
 
 Everything worked fine, but there was one problem, a worker was still up even after ending the execution of its queued tasks. This was a problem, since I wanted to destroy all the threads our program could generate, so this was not the way to go. 
 
-After digging a little, I discovered that the thread pool API, used in Ekko, was an old version, and there was a new one with some more capabilities, and, between them, a function that will effectively solve our problem: CloseThreadPool(). This new API allows us to create our own pool, and destroy them after using them, terminating all the used workers. It gives another two advantages: setting a maximum number of threads and cleaning groups.
+After digging a little, I discovered that the thread pool API, used in [Ekko](https://github.com/Cracked5pider/Ekko), was an old version, and there was a new one with some more capabilities, and, between them, a function that will effectively solve our problem: CloseThreadPool(). This new API allows us to create our own pool, and destroy them after using them, terminating all the used workers. It gives another two advantages: setting a maximum number of threads and cleaning groups.
 Setting a maximum number of threads would allow us to execute all our tasks sequentially, as long as they are queued with any time difference. 
 The cleaning groups are useful to make the cleanup easier after everything is done.
 
