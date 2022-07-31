@@ -7,7 +7,7 @@
                                                                                  
 
 
-A PoC implementation for an evasion technique to terminate the current thread and restore it before resuming execution by an agent, while implementing page protection changes during no execution.
+A PoC implementation for an evasion technique to terminate the current thread and restore it before resuming execution, while implementing page protection changes during no execution.
 
 ![](assets/ezgif-5-ee95c9b3b0.gif)
 
