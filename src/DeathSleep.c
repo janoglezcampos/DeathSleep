@@ -116,7 +116,7 @@ DeathSleep(ULONGLONG time)
 
     NdllImageBase = (PVOID)GetModuleHandleA("Ntdll");
     NtContinue    = GetProcAddress((HMODULE)NdllImageBase, "NtContinue");
-    RtlpTpTimerCallback = (PVOID) findInModule("Ntdll",(PBYTE) "\x48\x89\x5c\x24\x08\x48\x89\x74\x24\x18\x57\x48\x83\xec\x40\x48\x8b\xda\x80\x7a\x58\x00\x0f\x84\xa8", "xxxxxxxxxxxxxxxxxxxxxxxxx");
+    RtlpTpTimerCallback = (PVOID) findInModule("Ntdll",(PBYTE) "\x48\x89\x5c\x24\x08\x48\x89\x74\x24\x18\x57\x48\x83\xec\x40\x48\x8b\xda\x80\x7a\x58\x00\x0f\x84", "xxxxxxxxxxxxxxxxxxxxxxxx");
 
     rcxGadgetAddr =         findGadget((PBYTE) "\x59\xC3", "xx");
     shadowFixerGadgetAddr = findGadget((PBYTE) "\x48\x83\xC4\x20\x5F\xC3", "xxxxxx");
