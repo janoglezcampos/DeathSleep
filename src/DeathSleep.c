@@ -29,7 +29,7 @@ DWORD               OldProtect;
 
 VOID awake(PVOID lpParam)
 {
-    initialRsp =getRsp();
+    initialRsp = getRsp();
     if (lpParam != NULL)
     {
         moveRsp(stackBackupSize, 0xFBFBFAFA);
@@ -111,6 +111,8 @@ DeathSleep(ULONGLONG time)
     DWORD sizeRopStack = 0;
     PVOID ropStackPtr  = NULL;
 
+    printf("\n\t[+] Finding needed functions...\n", rcxGadgetAddr);
+
     ImageBase = (PVOID)GetModuleHandleA(NULL);
     ImageSize = ((PIMAGE_NT_HEADERS)((DWORD_PTR)ImageBase + ((PIMAGE_DOS_HEADER)ImageBase)->e_lfanew))->OptionalHeader.SizeOfImage;
 
@@ -121,9 +123,16 @@ DeathSleep(ULONGLONG time)
     rcxGadgetAddr =         findGadget((PBYTE) "\x59\xC3", "xx");
     shadowFixerGadgetAddr = findGadget((PBYTE) "\x48\x83\xC4\x20\x5F\xC3", "xxxxxx");
 
+    printf("\n\t[-] rcxGadgetAddr:         %p\n", rcxGadgetAddr);
+    printf("\t[-] shadowFixerGadgetAddr: %p\n", shadowFixerGadgetAddr);
+    printf("\t[-] RtlpTpTimerCallback:   %p\n", RtlpTpTimerCallback);
+
     threadCtxBackup.Rip = *(PDWORD64)(threadCtxBackup.Rsp + stackFrameSize);
 
     stackBackupSize = initialRsp - (threadCtxBackup.Rsp + stackFrameSize + 0x8);
+
+    printf("\n\t[-] Copying stack from %p with size %d\n", (PVOID) initialRsp, stackBackupSize);
+    printf("\t[-] Return address is: %p \n", (PVOID) threadCtxBackup.Rip);
 
     stackBackup = malloc(stackBackupSize);
 
